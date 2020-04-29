@@ -1,11 +1,11 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <ctime>
 #include <fcntl.h>
 #include <io.h> 
 
 using namespace std;
 
-enum Suit {clubs,diamonds,hearts,spades}; //трефы, бубны, червы, пики
+enum Suit {clubs,diamonds,hearts,spades}; //С‚СЂРµС„С‹, Р±СѓР±РЅС‹, С‡РµСЂРІС‹, РїРёРєРё
 const int jack = 11;
 const int queen = 12;
 const int king = 13;
@@ -17,9 +17,7 @@ private:
 	int number;
 	Suit suit;
 public:
-	cards()
-	{}
-	void set (int n, Suit s)
+	void set(int n, Suit s)
 	{
 		suit = s;
 		number = n;
@@ -27,34 +25,36 @@ public:
 	void display();
 };
 
+
+
 void cards::display()
 {
 	if (number >= 2 && number <= 10)
-		cout << number;
+		wcout << number;
 	else
 	{
 		switch (number)
 		{
-			case jack: cout << 'J'; break;
-			case queen: cout << 'Q'; break;
-			case king: cout << 'K'; break;
-			case ace: cout << 'A'; break;
+			case jack: wcout << 'J'; break;
+			case queen: wcout << 'Q'; break;
+			case king: wcout << 'K'; break;
+			case ace: wcout << 'A'; break;
 		}
 	}
 	switch (suit)
 	{
-	case clubs: wcout << L'\x2663'; break;
-	case diamonds: wcout << L'\x2666'; break;
-	case hearts: wcout << L'\x2665'; break;
-	case spades: wcout << L'\x2660'; break;
+	case clubs:    wcout << L'в™Ј'; break; // РёР»Рё L'\x2663' РІРјРµСЃС‚Рѕ static_cast<char>(5)
+	case diamonds: wcout << L'в™¦'; break; // РёР»Рё L'\x2666' РІРјРµСЃС‚Рѕ static_cast<char>(4)
+	case hearts:   wcout << L'в™Ґ'; break; // РёР»Рё L'\x2665' РІРјРµСЃС‚Рѕ static_cast<char>(3)
+	case spades:   wcout << L'в™ '; break; // РёР»Рё L'\x2660' РІРјРµСЃС‚Рѕ static_cast<char>(6)
 	}
 }
 
 int main()
 {
-	//setlocale(LC_ALL, "Russian");
+	setlocale(LC_ALL, "");
 
-	// переключение стандартного потока вывода в формат Юникода
+	// РїРµСЂРµРєР»СЋС‡РµРЅРёРµ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРіРѕ РїРѕС‚РѕРєР° РІС‹РІРѕРґР° РІ С„РѕСЂРјР°С‚ Р®РЅРёРєРѕРґР°
 	_setmode(_fileno(stdout), _O_U16TEXT);
 
 	cards deck[52];
@@ -68,14 +68,14 @@ int main()
 		Suit su = Suit (j / 13);
 		deck[j].set(num, su);
 	}
-	cout << "Исходная колода: \n";
+	wcout << L"РСЃС…РѕРґРЅР°СЏ РєРѕР»РѕРґР°: \n";
 	for (j = 0; j < 52; j++)
 	{
 		deck[j].display();
-		cout << "  ";
+		wcout << "  ";
 		if ( !((j+1) %13))
 		{
-			cout << endl;
+			wcout << endl;
 		}
 	}
 
@@ -90,31 +90,31 @@ int main()
 	for (j = 0; j < 52; j++)
 	{
 		int m = j % 13;
-		if (m == 0) cout << "\nКарты игрока № " << ++n << endl;
+		if (m == 0) wcout << L"\nРљР°СЂС‚С‹ РёРіСЂРѕРєР° в„– " << ++n << endl;
 		if (j < 13)
 		{
 			p1[m] = deck[j];
 			p1[m].display();
-			cout << " ";
+			wcout << " ";
 		}
 		if (j > 12 && j < 26)
 		{
 			p2[m] = deck[j];
 			p2[m].display();
-			cout << " ";
+			wcout << " ";
 			
 		}
 		if (j > 25 && j < 39)
 		{
 			p3[m] = deck[j];
 			p3[m].display();
-			cout << " ";
+			wcout << " ";
 		}
 		if (j > 38 && j < 52)
 		{
 			p4[m] = deck[j];
 			p4[m].display();
-			cout << " ";
+			wcout << " ";
 		}
 	}
 

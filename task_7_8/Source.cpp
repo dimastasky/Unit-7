@@ -2,11 +2,12 @@
 
 using namespace std;
 
-const int LIMIT = 100; //размер массива
 
 class safearray
 {
 private:
+	static const int LIMIT = 100; //размер массива
+
 	int element[LIMIT];
 public:
 	void putel(int index, int el)
